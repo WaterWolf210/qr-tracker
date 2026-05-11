@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
-const MEU_IP = '192.168.1.215';
+const MEU_IP = 'qr-tracker-5jm5.onrender.com';
 
 const db = new Database('tracking.db');
 
@@ -72,8 +72,7 @@ app.get('/api/gerar-qr', async (req, res) => {
   if (!id || !destino) {
     return res.status(400).json({ erro: 'Parametros em falta' });
   }
-  const url = 'http://' + MEU_IP + ':' + PORT + '/qr/' + id + '?destino=' + encodeURIComponent(destino);
-  try {
+  const url = 'https://' + MEU_IP + '/qr/' + id + '?destino=' + encodeURIComponent(destino);
     const qr = await QRCode.toDataURL(url, { width: 400, margin: 2 });
     res.json({ qr: qr, url: url });
   } catch (err) {
